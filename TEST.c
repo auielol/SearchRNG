@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 
 struct node
@@ -17,6 +18,8 @@ void displayList();
 void radixSort();
 int maxDig();
 int findDig();
+
+bool search(int key);
 
 int main()
 {
@@ -43,6 +46,8 @@ int menu()
 
 int getSelection(int select)
 {
+	int key;
+	
 	switch (select)
 	{
 		case 1:
@@ -68,7 +73,19 @@ int getSelection(int select)
 			}
 		case 4:
 			{
+				printf("\nEnter a key to search: ");
+				scanf("%d", &key);
 				
+				if(search(key))
+				{
+					printf(" ");
+				}
+				else
+				{
+					printf("\nNO DATA FOUND\n");
+				}
+				
+				break;
 			}
 		case 5:
 			{
@@ -90,9 +107,8 @@ int getSelection(int select)
 
 void createList()
 {
+	struct node *newNode, *temp;
     int data, i, count = 0;
-	
-    struct node *newNode, *temp;
     
     head = (struct node *)malloc(sizeof(struct node));
     
@@ -221,6 +237,28 @@ int findDig(int number, int k)
         number = number / 10;
     }
     return(term);
+}
+
+bool search(int key)
+{
+	int location = 1;
+	
+	struct node *temp = head;
+	
+	while (temp != NULL)
+	{
+		if (temp->data == key)
+		{
+			printf("DATA FOUND ON NODE %d", location);
+			
+			return true;
+		}
+		
+		temp = temp->next;
+		location++;
+	}
+	
+	return false;
 }
 
 void displayList()
