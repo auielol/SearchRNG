@@ -90,8 +90,9 @@ int getSelection(int select)
 
 void createList()
 {
-	struct node *newNode, *temp;
     int data, i, count = 0;
+	
+    struct node *newNode, *temp;
     
     head = (struct node *)malloc(sizeof(struct node));
     
